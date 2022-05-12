@@ -63,71 +63,9 @@
                         <td>{{ wafer_descriptions.balance }}</td>
                         <td>{{ wafer_descriptions.release_status }}</td>
 
-                        <td>
-                            <a href="/wafer_description/update/{{wafer_descriptions.wafer_description_id}}" class="btn"
-                               data-toggle="modal" data-target="#modaledit{{wafer_descriptions.wafer_description_id}}">
-                                <i class="fa fa-pencil"></i></a>
-                        </td>
                     </tr>
                     </tbody>
                     {% endif %}
-
-
-                  <!-- Modal Edit Material-->
-<div id="modaledit{{wafer_descriptions.wafer_description_id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-
-         <div class="modal-header">
-            <h4 class="modal-title">Update Wafer Information</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/wafer_inventory/update/{{ wafer_descriptions.wafer_description_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Balance:</label>
-                        <input type="number" class="form-control" name="balance" value="{{wafer_descriptions.balance}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Material Release Status:</label>
-                        <input type="hidden" value="{{wafer_descriptions.release_status}}">
-                        <select class="form-control" name="release_status" required>
-                            <option value="">Select A Release Status</option>
-                            <option value="Reject">Reject</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Release">Release</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
                     {% endfor %}
                 </table>
 
