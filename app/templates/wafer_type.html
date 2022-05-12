@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Wafer Type {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-7">
+            <div class="jumbotron p-3">
+
+                    <button type="button" style="margin:5px;" class="btn btn-success float-right" data-toggle="modal"
+                        data-target="#mymodal"><i class="fa fa-plus"></i> Add Wafer Type</button>
+
+                    <div class="form-group pull-right" style="margin:5px;">
+                        <input type="text" class="form-control" id="mySearch" placeholder="Search">
+                    </div>
+
+                    <h3>Please select (or add) a wafer type:</h3>
+
+                    </br>
+                    </br>
+
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+
+                {{message}}
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <table id="myTable" class="table table-hover table-sm text-center">
+                    <thead>
+                        <tr>
+                            <th>Wafer Device</th>
+                            <th></th>
+                            <th>Wafer Charge</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+
+
+                    {% for wafer in wafer_types %}
+                    <tr>
+                        <td>{{ wafer.wafer_device }}</td>
+                        <td></td>
+                        <td>{{ wafer.wafer_charge }}</td>
+                        <td></td>
+
+                        <td>
+                            <a href="/wafer_type/update/{{wafer.wafer_type_id}}" class="btn" data-toggle="modal"
+                               data-target="#modaledit{{wafer.wafer_type_id}}"><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <td></td>
+                        <td>
+                            <a href="/wafer_type/delete/{{wafer.wafer_type_id}}" class="btn"
+                               onclick="return confirm('Are You Sure To Delete?')"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                        <td></td>
+                        <td>
+                            <a href="/wafer_type/{{ wafer.wafer_type_id }}" class="btn btn-success" >Select</a>
+                        </td>
+                    </tr>
+
+
+
+                  <!-- Modal Edit Material-->
+<div id="modaledit{{wafer.wafer_type_id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h4 class="modal-title">Update Wafer Type</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('update_wafer_type')}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Wafer Device:</label>
+                        <input type="hidden"  name="wafer_type_id" value="{{wafer.wafer_type_id}}">
+                        <input type="text" class="form-control" name="wafer_device" value="{{wafer.wafer_device}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Wafer Charge:</label>
+                        <input type="text" class="form-control" name="wafer_charge" value="{{wafer.wafer_charge}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
+
+
+                  <!-- Modal Add Material-->
+<div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Wafer Type</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('insert_wafer_type')}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Wafer Device:</label>
+                        <input type="text" class="form-control" name="wafer_device" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Wafer Charge:</label>
+                        <input type="text" class="form-control" name="wafer_charge" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

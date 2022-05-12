@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Lead Frame No. {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-7">
+            <div class="jumbotron p-3">
+
+                    <button type="button" style="margin:5px;" class="btn btn-success float-right" data-toggle="modal"
+                        data-target="#mymodal"><i class="fa fa-plus"></i> Add Lead Frame No.</button>
+
+                    <div class="form-group pull-right" style="margin:5px;">
+                        <input type="text" class="form-control" id="mySearch" placeholder="Search">
+                    </div>
+
+                    <h3>Please select (or add) a lead frame no.:</h3>
+
+                    </br>
+                    </br>
+
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+
+                {{message}}
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <table id="myTable" class="table table-hover table-sm text-center">
+                    <thead>
+                        <tr>
+                            <th>Lead Frame No.</th>
+                            <th></th>
+                            <th>Supplier</th>
+                            <th></th>
+                            <th>Package No.</th>
+                            <th></th>
+                            <th>Title</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+
+
+                    {% for lead in lead_types %}
+                    <tr>
+                        <td>{{ lead.lead_no }}</td>
+                        <td></td>
+                        <td>{{ lead.supplier }}</td>
+                        <td></td>
+                        <td>{{ lead.package_no }}</td>
+                        <td></td>
+                        <td>{{ lead.title }}</td>
+                        <td></td>
+
+                        <td>
+                            <a href="/lead_type/update/{{lead.lead_type_id}}" class="btn" data-toggle="modal"
+                               data-target="#modaledit{{lead.lead_type_id}}"><i class="fa fa-pencil"></i></a>
+                        </td>
+                        <td></td>
+                        <td>
+                            <a href="/lead_type/delete/{{lead.lead_type_id}}" class="btn"
+                               onclick="return confirm('Are You Sure To Delete?')"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                        <td></td>
+                        <td>
+                            <a href="/lead_type/{{ lead.lead_type_id }}" class="btn btn-success" >Select</a>
+                        </td>
+                    </tr>
+
+
+
+                  <!-- Modal Edit Material-->
+<div id="modaledit{{lead.lead_type_id}}" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h4 class="modal-title">Update Lead Frame No.</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('update_lead_type')}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Lead Frame No.:</label>
+                        <input type="hidden"  name="lead_type_id" value="{{lead.lead_type_id}}">
+                        <input type="text" class="form-control" name="lead_no" value="{{lead.lead_no}}" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Supplier:</label>
+                        <input type="text" class="form-control" name="supplier" value="{{lead.supplier}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Package No.:</label>
+                        <input type="text" class="form-control" name="package_no" value="{{lead.package_no}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" class="form-control" name="title" value="{{lead.title}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    </div>
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
+
+
+                  <!-- Modal Add Material-->
+<div id="mymodal" class="modal fade" role="dialog">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Add Lead Frame No.</h4>
+         </div>
+
+         <div class="modal-body">
+            <form action="{{url_for('insert_lead_type')}}" method="POST">
+
+                    <div class="form-group">
+                        <label>Lead Frame No:</label>
+                        <input type="text" class="form-control" name="lead_no" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supplier:</label>
+                        <input type="text" class="form-control" name="supplier" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Package No.:</label>
+                        <input type="text" class="form-control" name="package_no" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
