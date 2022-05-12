@@ -80,72 +80,9 @@
                         <td>{{ lead_descriptions.balance }}</td>
                         <td>{{ lead_descriptions.release_status }}</td>
                         <td class="expiry_status" id="expiry_status">{{ lead_descriptions.expiry_date }}</td>
-
-                        <td>
-                            <a href="/lead_description/update/{{lead_descriptions.lead_description_id}}" class="btn"
-                               data-toggle="modal" data-target="#modaledit{{lead_descriptions.lead_description_id}}">
-                                <i class="fa fa-pencil"></i></a>
-                        </td>
                     </tr>
                     </tbody>
                     {% endif %}
-
-
-                  <!-- Modal Edit Material-->
-<div id="modaledit{{lead_descriptions.lead_description_id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-
-         <div class="modal-header">
-            <h4 class="modal-title">Update Lead Frame Information</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/lead_inventory/update/{{ lead_descriptions.lead_description_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Balance:</label>
-                        <input type="number" class="form-control" name="balance" value="{{lead_descriptions.balance}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Material Release Status:</label>
-                        <input type="hidden" value="{{lead_descriptions.release_status}}">
-                        <select class="form-control" name="release_status" required>
-                            <option value="">Select A Release Status</option>
-                            <option value="Reject">Reject</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Release">Release</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
                     {% endfor %}
                 </table>
 
