@@ -14,16 +14,12 @@
                     <h3>{{ glue_type.glue_name }} ({{glue_type.syringe_volume}}cc/{{glue_type.weight}}g)</h3>
                 </a>
 
-                <button type="button" style="margin:5px;" class="btn btn-success float-right" data-toggle="modal"
-                        data-target="#mymodal"><i class="fa fa-plus"></i> Add Glue</button>
-
                 <div class="form-group pull-right" style="margin:5px;">
                     <input type="text" class="form-control" id="mySearch" placeholder="Search">
                 </div>
 
                 </br>
                 </br>
-
 
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -90,158 +86,7 @@
                         <td class="trans_type" id="trans_type">{{ glue.trans_type }}</td>
                         <td class="expiry_status" id="expiry_status">{{ glue.expiry_date }}</td>
 
-
-                        {% if glue.trans_type=="incoming" %}
-                        {% if glue.incoming_qty == glue.balance %}
-                        <td>
-                            <a href="/glue_description/update/{{glue.glue_description_id}}" class="btn" data-toggle="modal"
-                               data-target="#modaledit{{glue.glue_description_id}}"><i class="fa fa-pencil"></i></a>
-                        </td>
-                        {% endif %}
-                        {% endif %}
-
-                        <td>
-                            <a href="/glue_description/delete/{{glue.glue_description_id}}" class="btn"
-                               onclick="return confirm('Are You Sure To Delete?')"><i class="fa fa-trash-o"></i></a>
-                        </td>
-
-                        {% if glue.trans_type == "incoming" %}
-                        <td class="withdraw" id="withdraw">
-                            <a href="/glue_description/withdraw/{{glue.glue_description_id}}" class="btn btn-danger"
-                               data-toggle="modal" data-target="#modalwithdraw{{glue.glue_description_id}}"><i class="fa fa-sign-in"></i>
-                            </a>
-                        </td>
-                        {% endif %}
                     </tr>
-
-
-
-                  <!-- Modal Edit Material-->
-<div id="modaledit{{glue.glue_description_id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-
-         <div class="modal-header">
-            <h4 class="modal-title">Update Glue Description</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/glue_description/update/{{ glue.glue_description_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Lot No.:</label>
-                        <input type="text" class="form-control" name="lot_no" value="{{glue.lot_no}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Received Date:</label>
-                        <input type="date" class="form-control" name="received_date" value="{{glue.received_date}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Expiry Date:</label>
-                        <input type="date" class="form-control" name="expiry_date" value="{{glue.expiry_date}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Project Leader:</label>
-                        <input type="text" class="form-control" name="project_leader" value="{{glue.project_leader}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Incoming Qty (syringe):</label>
-                        <input type="number" class="form-control" name="incoming_qty" value="{{glue.incoming_qty}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
-
-
-                    <!--Modal Withdraw Material-->
-
-<div id="modalwithdraw{{glue.glue_description_id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-
-         <div class="modal-header">
-            <h4 class="modal-title">Withdraw Glue</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/glue_description/withdraw/{{ glue.glue_description_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Withdraw Date:</label>
-                        <input type="date" class="form-control" name="withdraw_date" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Withdraw Qty (syringe):</label>
-                        <input type="number" class="form-control" name="withdraw_qty" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Withdraw By:</label>
-                        <input type="text" class="form-control" name="withdraw_by" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Withdraw Purpose:</label>
-                        <input type="text" class="form-control" name="withdraw_purpose" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Withdraw</button>
-                    </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
 
                     {% endfor %}
 
@@ -250,72 +95,7 @@
 
 
             </div>
-
-
-
-                  <!-- Modal Add Material-->
-<div id="mymodal" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h4 class="modal-title">Add Glue Description</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/glue_description/insert/{{ glue_type.glue_type_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Lot No.:</label>
-                        <input type="text" class="form-control" name="lot_no" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Received Date:</label>
-                        <input type="date" class="form-control" name="received_date" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Expiry Date:</label>
-                        <input type="date" class="form-control" name="expiry_date" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Project Leader:</label>
-                        <input type="text" class="form-control" name="project_leader" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Incoming Qty (1 syringe/unit):</label>
-                        <input type="number" class="form-control" name="incoming_qty" required>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add</button>
-                    </div>
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-
-</div>
-
-
-
-
-
+             
         </div>
 
     </div>
