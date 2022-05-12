@@ -24,14 +24,6 @@
                 {% if messages %}
                 {% for message in messages %}
 
-                <div class="alert alert-success alert-dismissable" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-
-                {{message}}
-                </div>
-
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
@@ -83,63 +75,6 @@
                     </tr>
                     </tbody>
                     {% endif %}
-
-
-                  <!-- Modal Edit Material-->
-<div id="modaledit{{glue_descriptions.glue_description_id}}" class="modal fade" role="dialog">
-   <div class="modal-dialog">
-      <div class="modal-content">
-
-         <div class="modal-header">
-            <h4 class="modal-title">Update Glue Information</h4>
-         </div>
-
-         <div class="modal-body">
-            <form action="/glue_inventory/update/{{ glue_descriptions.glue_description_id }}" method="POST">
-
-                    <div class="form-group">
-                        <label>Balance:</label>
-                        <input type="number" class="form-control" name="balance" value="{{glue_descriptions.balance}}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Material Release Status:</label>
-                        <input type="hidden" value="{{glue_descriptions.release_status}}">
-                        <select class="form-control" name="release_status" required>
-                            <option value="">Select A Release Status</option>
-                            <option value="Reject">Reject</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Release">Release</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </div>
-
-
-            </form>
-
-
-         </div>
-
-
-         <div class="modal-footer">
-
-
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-
-         </div>
-
-
-      </div>
-
-
-   </div>
-
-</div>
-
                     {% endfor %}
                 </table>
 
